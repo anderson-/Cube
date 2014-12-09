@@ -38,6 +38,7 @@ public:
 	void setPixel(uint8_t x, uint8_t y, uint8_t val);
 	uint8_t * getFrame ();
 	void blinkLED(byte targetPin, int numBlinks, int blinkRate);
+	void delay(int delay);
 	void blinkRegion(uint8_t x,uint8_t y,uint8_t w,uint8_t h,uint8_t blinkInterval,uint8_t *data);
 private:
 	uint8_t frame[FRAME_SIZE];
@@ -50,6 +51,5 @@ private:
 	long time_blink;
 	uint8_t x,y,w,h, blinkInterval, * blinkData;
 };
-
 
 #endif

@@ -123,7 +123,7 @@ void Cube::run(){
 
 	int potVal = analogRead(A0);
 
-	if (millis()-time >= activityTimestep){
+	if (millis()-time >= activityTimestep || pushes != 0){
 		time = millis();
 		if (stackCounter != -1 && stack[stackCounter] != NULL){
 			if (!stack[stackCounter]->perform(this, pushes, potVal)){
@@ -188,11 +188,18 @@ uint8_t * Cube::getFrame (){
 
 void Cube::blinkLED(byte targetPin, int numBlinks, int blinkRate) {
 	for (int i=0; i < numBlinks; i++) {
-    digitalWrite(targetPin, HIGH);   // sets the LED on
-    delay(blinkRate);                     // waits for blinkRate milliseconds
-    digitalWrite(targetPin, LOW);    // sets the LED off
-    delay(blinkRate);
+		digitalWrite(targetPin, HIGH);
+		delay(blinkRate);
+		digitalWrite(targetPin, LOW);
+		delay(blinkRate);
+	}
 }
+
+void Cube::delay(int delay) {
+	time = millis();
+	while (millis() - time < delay){
+		print();
+	}
 }
 
 void Cube::blinkRegion(uint8_t x,uint8_t y,uint8_t w,uint8_t h,uint8_t blinkInterval,uint8_t *blinkData){
